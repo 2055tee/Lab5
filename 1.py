@@ -28,8 +28,6 @@ class simple_drawing_window(QWidget):
 
         p.end()
 
-
-# draw a cat
 class Simple_drawing_window3(simple_drawing_window):
     def __init__(self):
         simple_drawing_window.__init__(self)
