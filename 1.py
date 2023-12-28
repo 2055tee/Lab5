@@ -34,3 +34,6 @@ def main():
     w.show()
 
     return app.exec_()
+
+if __name__ == "__main__":
+    sys.exit(main())
