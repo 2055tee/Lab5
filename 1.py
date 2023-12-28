@@ -73,11 +73,30 @@ class Simple_drawing_window2(Simple_drawing_window1):
             [QPoint(300, 220), QPoint(320, 200), QPoint(340, 220), QPoint(330, 185), QPoint(360, 185), QPoint(330, 175),QPoint(320,150), QPoint(310, 175), QPoint(280, 185), QPoint(310, 185)]
         )
 
+# draw a triangle
+class Simple_drawing_window3(Simple_drawing_window2):
+    def __init__(self):
+        simple_drawing_window.__init__(self)
+        self.setWindowTitle("Simple Drawing")
+
+    def paintEvent(self, e):
+        super().paintEvent(e)
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        # Draw a triangle
+        triangle_color = QColor(0, 0, 0)
+        painter.setBrush(QBrush(triangle_color))
+
+        # Define the points of the triangle
+        points = [QPoint(400, 200), QPoint(600, 200), QPoint(300, 50)]
+        painter.drawPolygon(points)
+
 
 def main():
     app = QApplication(sys.argv)
 
-    w = Simple_drawing_window2()
+    w = Simple_drawing_window3()
     w.show()
 
     return app.exec_()
