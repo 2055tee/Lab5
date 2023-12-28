@@ -10,6 +10,7 @@ class Transportation(object):
     def find_cost(self):
         """Abstract method; derived classes must override"""
         raise NotImplementedError
+
     
 class Walk(Transportation):
     """Walk class"""
@@ -45,6 +46,4 @@ trip = [Walk("KMITL","KMITL SCB Bank",0.6),
         Bus("The British Council","Central World",0.5)]
 
 for travel in trip:
-    travel_cost += travel.find_cost()
-
-print(travel_cost)
+    travel.find_cost()
