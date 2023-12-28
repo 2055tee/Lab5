@@ -28,7 +28,9 @@ class simple_drawing_window(QWidget):
 
         p.end()
 
-class Simple_drawing_window3(simple_drawing_window):
+
+# draw a cat
+class Simple_drawing_window1(simple_drawing_window):
     def __init__(self):
         simple_drawing_window.__init__(self)
         self.setWindowTitle("Simple Drawing")
@@ -53,12 +55,29 @@ class Simple_drawing_window3(simple_drawing_window):
         mouth_color = QColor(0, 0, 0)  # Black
         painter.setPen(QPen(mouth_color, 2))
         painter.drawArc(212, 100, 20, 20, 0, -180 * 16)
+    
+class Simple_drawing_window2(Simple_drawing_window1):
+    def __init__(self):
+        Simple_drawing_window1.__init__(self)
+        self.setWindowTitle("Simple Drawing")
+    
+    def paintEvent(self, e):
+        super().paintEvent(e)
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        
+        #Draw star
+        star_color = QColor(255, 255, 0)
+        painter.setBrush(QBrush(star_color))
+        painter.drawPolygon(
+            [QPoint(300, 220), QPoint(320, 200), QPoint(340, 220), QPoint(330, 185), QPoint(360, 185), QPoint(330, 175),QPoint(320,150), QPoint(310, 175), QPoint(280, 185), QPoint(310, 185)]
+        )
 
 
 def main():
     app = QApplication(sys.argv)
 
-    w = Simple_drawing_window3()
+    w = Simple_drawing_window2()
     w.show()
 
     return app.exec_()
