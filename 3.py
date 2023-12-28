@@ -15,7 +15,7 @@ class Disk:
         self.t.setheading(0)
         
         
-        self.t.fillcolor("brown")
+        self.t.fillcolor("pink")
         self.t.begin_fill()
         self.t.pendown()
         self.t.forward(self.dwidth/2)
@@ -90,3 +90,32 @@ class Pole:
         else:
             print("No disk to pop.")
             return None
+
+class Hanoi(object):
+    def __init__(self, n = 3, start = "A", workspace = "B", destination = "C"):
+        self.startup = Pole(start,0,0)
+        self.workspace = Pole(workspace,150,0)
+        self.destination = Pole(destination,300,0)
+        self.startup.showpole()
+        self.workspace.showpole()
+        self.destination.showpole()
+        for i in range(n):
+            self.startup.pushdisk(Disk("d"+str(i),0,i*150,20,(n-i)*30))
+    
+    def move_disk(self, start, destination):
+        disk = start.popdisk()
+        destination.pushdisk(disk)
+    
+    def move_tower(self, n, start, destination, workspace):
+        if n == 1:
+            self.move_disk(start, destination)
+        else:
+            self.move_tower(n-1, start, workspace, destination)
+            self.move_disk(start, destination)
+            self.move_tower(n-1, workspace, destination, start)
+    
+    def solve(self):
+        self.move_tower(3, self.startup, self.destination, self.workspace)
+
+h = Hanoi()
+h.solve()
