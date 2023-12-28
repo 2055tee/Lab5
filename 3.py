@@ -42,3 +42,51 @@ class Disk:
         self.t.clear()  
         self.t.setheading(0)  
         self.t.goto(self.dxpos, self.dypos) 
+
+class Pole:
+    def __init__(self,name="", xpos=0, ypos=0, length=100, thick=10):
+        self.pname = name
+        self.pxpos = xpos
+        self.pypos = ypos
+        self.plength = length
+        self.pthick = thick
+        self.stack = []
+        self.toppos = 0
+        
+    def showpole(self):
+        t.penup()
+        t.goto(self.pxpos, self.pypos)
+        t.setheading(0)
+        t.pendown()
+        t.fillcolor("black")
+        t.begin_fill()
+        for i in range(2):
+            t.forward(self.pthick/2)
+            t.left(90)
+            t.forward(self.plength)
+            t.left(90)
+        t.end_fill()
+        t.penup()
+        t.setheading(0)
+    
+    def pushdisk(self, disk):
+        if not self.stack or disk.dwidth < self.stack[-1].dwidth:
+            disk.newpos(self.pxpos, self.toppos)
+            self.toppos += disk.dheight
+            self.stack.append(disk)
+            disk.showdisk()
+        else:
+            print("Invalid Move. Cannot place a larger disk on top of a smaller one.")
+    
+    def popdisk(self):
+        if self.stack:
+            disk = self.stack.pop()
+            disk.cleardisk()
+            if self.stack:
+                self.toppos = self.stack[-1].dypos + self.stack[-1].dheight
+            else:
+                self.toppos = 0
+            return disk
+        else:
+            print("No disk to pop.")
+            return None
